@@ -15,13 +15,15 @@ import Footer from "./components/FooterCom/FooterCom.jsx";
 import FooterCom from "./components/FooterCom/FooterCom.jsx";
 import Service from "./Pages/Service/Service.jsx";
 import Privacy from "./Pages/privacy/privacy.jsx";
+import Construction from './components/Construction/Construction.jsx';
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     return (
         <div className="app">
-            <ScrollToTop/>
+            <Construction/>
+            {/* <ScrollToTop/>
             <NavbarCom/>
             <main className="main-app">
                 <Routes>
@@ -36,7 +38,7 @@ function App() {
                     <Route path="*" element={<Link to="/"/>}/> </Routes>
 
             </main>
-        <FooterCom/>
+        <FooterCom/> */}
         </div>
     );
 }
