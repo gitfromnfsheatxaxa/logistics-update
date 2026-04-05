@@ -22,8 +22,8 @@ function App() {
 
     return (
         <div className="app">
-            <Construction/>
-            {/* <ScrollToTop/>
+            {/* <Construction/> */}
+            <ScrollToTop/>
             <NavbarCom/>
             <main className="main-app">
                 <Routes>
@@ -38,7 +38,7 @@ function App() {
                     <Route path="*" element={<Link to="/"/>}/> </Routes>
 
             </main>
-        <FooterCom/> */}
+        <FooterCom/>
         </div>
     );
 }

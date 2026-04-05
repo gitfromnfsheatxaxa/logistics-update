@@ -1,67 +1,111 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { faAlignJustify, faAlignRight } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { faAlignJustify, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './NavbarCom.css'; // Import the CSS file
+import './NavbarCom.css';
 import Logo from '/public/logo-for-website.svg';
+
 const NavbarCom = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+    const location = useLocation();
 
-    const handleToggleMobileMenu = () => {
-        setMobileMenuOpen(!mobileMenuOpen);
-    };
+    // Detect scroll to add solid background when scrolled
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 40);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
-    // Function to close the mobile menu
-    const closeMobileMenu = () => {
+    // Close menu on route change
+    useEffect(() => {
         setMobileMenuOpen(false);
-    };
+    }, [location]);
+
+    const isActive = (path) =>
+        path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
 
     return (
-        <header className="header-nav">
-            <div className="dark-cyan-background" />
-            <div className="container">
-                <nav className="nav">
-                    <Link className="Logo" to="/">
-                        <img src={Logo} alt="Logo" className="logo-image" />
+        <header className={`navbar${scrolled ? ' navbar--scrolled' : ''}${mobileMenuOpen ? ' navbar--open' : ''}`}>
+            <div className="navbar__inner">
+                {/* Logo */}
+                <Link className="navbar__logo" to="/" aria-label="Home">
+                    <img src={Logo} alt="Company Logo" />
+                </Link>
 
-                    </Link>
-                    <ul className={`nav-list ${mobileMenuOpen ? 'open' : ''}`}>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/" onClick={closeMobileMenu}>Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/about" onClick={closeMobileMenu}>About</Link>
-                        </li>
-
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/trucks" onClick={closeMobileMenu}>Trucks</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/services" onClick={closeMobileMenu}>Services</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/contact" onClick={closeMobileMenu}>Contact</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/apply" onClick={closeMobileMenu}>Apply Now</Link>
-                        </li>
+                {/* Desktop nav links */}
+                <nav className="navbar__nav" aria-label="Main navigation">
+                    <ul className="navbar__list">
+                        {[
+                            { to: '/', label: 'Home' },
+                            { to: '/about', label: 'About' },
+                            { to: '/trucks', label: 'Trucks' },
+                            { to: '/services', label: 'Services' },
+                            { to: '/contact', label: 'Contact' },
+                        ].map(({ to, label }) => (
+                            <li key={to} className="navbar__item">
+                                <Link
+                                    to={to}
+                                    className={`navbar__link${isActive(to) ? ' navbar__link--active' : ''}`}
+                                >
+                                    {label}
+                                    <span className="navbar__link-bar" />
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
-                    <div className="nav-actions">
-
-                        <button
-                            className="toggle-mobile-button"
-                            onClick={handleToggleMobileMenu}
-                            aria-label={mobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
-                        >
-                            {mobileMenuOpen ? (
-                                <FontAwesomeIcon className="burger" icon={faAlignRight}/>
-                            ) : (
-                                <FontAwesomeIcon className="burger" icon={faAlignJustify}/>
-                            )}
-                        </button>
-
-                    </div>
                 </nav>
+
+                {/* CTA + Burger */}
+                <div className="navbar__right">
+                    <Link to="/apply" className="navbar__cta">
+                        Apply Now
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" strokeWidth="2.5"
+                            strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </Link>
+
+                    <button
+                        className="navbar__burger"
+                        onClick={() => setMobileMenuOpen(o => !o)}
+                        aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+                        aria-expanded={mobileMenuOpen}
+                    >
+                        <FontAwesomeIcon icon={mobileMenuOpen ? faTimes : faAlignJustify} />
+                    </button>
+                </div>
+            </div>
+
+            {/* Mobile drawer */}
+            <div className={`navbar__drawer${mobileMenuOpen ? ' navbar__drawer--open' : ''}`}>
+                <ul className="navbar__drawer-list">
+                    {[
+                        { to: '/', label: 'Home' },
+                        { to: '/about', label: 'About' },
+                        { to: '/trucks', label: 'Trucks' },
+                        { to: '/services', label: 'Services' },
+                        { to: '/contact', label: 'Contact' },
+                    ].map(({ to, label }, i) => (
+                        <li key={to} className="navbar__drawer-item"
+                            style={{ animationDelay: `${i * 0.06}s` }}>
+                            <Link
+                                to={to}
+                                className={`navbar__drawer-link${isActive(to) ? ' navbar__drawer-link--active' : ''}`}
+                            >
+                                <span className="navbar__drawer-num">0{i + 1}</span>
+                                {label}
+                            </Link>
+                        </li>
+                    ))}
+                    <li className="navbar__drawer-item"
+                        style={{ animationDelay: '0.3s' }}>
+                        <Link to="/apply" className="navbar__drawer-cta">
+                            Apply Now →
+                        </Link>
+                    </li>
+                </ul>
             </div>
         </header>
     );

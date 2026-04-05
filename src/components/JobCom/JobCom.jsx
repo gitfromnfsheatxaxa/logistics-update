@@ -1,170 +1,241 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import {useBlog} from '../../Context';
-import "./JobCom.css"
-import { Link } from "react-router-dom";
+import { useBlog } from '../../Context';
+import './JobCom.css';
+import { Link } from 'react-router-dom';
 
 const JobCom = () => {
-    const [message, setMessage] = useState('');
     const [name, setName] = useState('');
-    const [file, setFile] = useState(null);
-    const [status, setStatus] = useState('');
-    const [userType, setUserType] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [userType, setUserType] = useState('Company Driver');
     const [additionalContact, setAdditionalContact] = useState('');
+    const [file, setFile] = useState(null);
+    const [message, setMessage] = useState('');
     const [consent, setConsent] = useState(false);
+    const [status, setStatus] = useState(''); // 'success' | 'error' | ''
+    const [statusMsg, setStatusMsg] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const {addPost} = useBlog();
+    const { addPost } = useBlog();
 
-    const BOT_TOKEN = '8093316717:AAHTCqtW189UlkgnW8X2SezZzOYSGdKwrx0'; // Your Bot Token
-    const CHAT_ID = '-1002404493511'; // Your Chat ID
+    const BOT_TOKEN = '8093316717:AAHTCqtW189UlkgnW8X2SezZzOYSGdKwrx0';
+    const CHAT_ID = '-1002404493511';
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setStatus(''); // Clear previous status messages
+        setLoading(true);
+        setStatus('');
 
-        const formData = new FormData();
-        if (file) {
-            formData.append('document', file);
-        }
-
-        // Construct the message with user details
-        const caption = `Details: From job offer\nName: ${name}\nMessage: ${message}\nEmail: ${email}\nPhone Number: ${phoneNumber}\n Job_type: ${userType}${additionalContact ? `\nAdditional Contact: ${additionalContact}` : ''}`;
+        const caption = `Application — Job Offer\nName: ${name}\nEmail: ${email}\nPhone: ${phoneNumber}\nJob Type: ${userType}${additionalContact ? `\nAdditional Contact: ${additionalContact}` : ''}\nMessage: ${message}`;
 
         try {
-            // Only send the document if it exists
             if (file) {
-                const uploadResponse = await axios.post(
+                const formData = new FormData();
+                formData.append('document', file);
+                const res = await axios.post(
                     `https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`,
                     formData,
-                    {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        },
-                        params: {
-                            chat_id: CHAT_ID,
-                            caption: caption
-                        }
-                    }
+                    { headers: { 'Content-Type': 'multipart/form-data' }, params: { chat_id: CHAT_ID, caption } }
                 );
-
-                if (uploadResponse.data.ok) {
-                    setStatus('File sent successfully!');
+                if (res.data.ok) {
+                    setStatus('success');
+                    setStatusMsg('Application submitted! We\'ll be in touch shortly.');
                 } else {
-                    setStatus('Error sending file: ' + uploadResponse.data.description);
+                    setStatus('error');
+                    setStatusMsg('Error sending file. Please try again.');
                 }
             } else {
-                // If no file is attached, send just the message
-                const messageResponse = await axios.post(
+                const res = await axios.post(
                     `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
-                    {
-                        chat_id: CHAT_ID,
-                        text: caption
-                    }
+                    { chat_id: CHAT_ID, text: caption }
                 );
-
-                if (messageResponse.data.ok) {
-                    setStatus('Message sent successfully!');
+                if (res.data.ok) {
+                    setStatus('success');
+                    setStatusMsg('Application submitted! We\'ll be in touch shortly.');
+                    setName(''); setEmail(''); setPhoneNumber('');
+                    setAdditionalContact(''); setMessage(''); setFile(null); setConsent(false);
                 } else {
-                    setStatus('Error sending message: ' + messageResponse.data.description);
+                    setStatus('error');
+                    setStatusMsg('Something went wrong. Please try again.');
                 }
             }
-        } catch (error) {
-            console.error('Error:', error.response ? error.response.data : error.message);
-            setStatus('An error occurred while sending. Check the console for details.');
+        } catch (err) {
+            setStatus('error');
+            setStatusMsg('An error occurred. Please try again later.');
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <>
-            <form onSubmit={handleSubmit} className="telegram-form">
-                <h1 className="apply">Application</h1>
+        <div className="job-page">
 
-
-                <label htmlFor="email">Email:</label>
-                <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <label htmlFor="phone">Phone Number <span style={{color: 'red'}}>*</span>:</label>
-                <input
-                    type="tel"
-                    id="phone"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    required
-                />
-                <label htmlFor="user-type">In which offer are you interested in?</label>
-                <select
-                    id="user-type"
-                    value={userType}
-                    onChange={(e) => setUserType(e.target.value)}
-                >
-                    <option value="Company Driver">Company Driver</option>
-                    <option value="Owner Operator">Owner Operator</option>
-                </select>
-                <label htmlFor="additional-contact">Additional Contact (Optional):</label>
-                <input
-                    type="text"
-                    id="additional-contact"
-                    value={additionalContact}
-                    onChange={(e) => setAdditionalContact(e.target.value)}
-                    placeholder="LinkedIn, Telegram, etc."
-                />
-
-                <label htmlFor="file">Upload CDL (Optional)</label>
-                <input
-                    type="file"
-                    id="file"
-                    accept=".pdf,.doc,.docx,.txt"
-                    onChange={(e) => setFile(e.target.files[0])}
-                />
-                <label htmlFor="name">Full name <span style={{color: 'red'}}>*</span></label>
-                <input
-                    type="text"
-                    id="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                />
-
-                <label htmlFor="message">Message:</label>
-                <textarea
-                    id="message"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                />
-                <div id="consent-checkbox" className="consent-checkbox">
-                    <input
-                        type="checkbox"
-                        id="consent"
-                        checked={consent}
-                        onChange={(e) => setConsent(e.target.checked)}
-                        required
-                    />
-                    <label htmlFor="consent">
-                        By providing my phone number to “MO GLOBE TRUCKING CORP,” I agree and acknowledge that MO GLOBE TRUCKING corp  may send text messages to my wireless phone number for any purpose. Message frequency will vary, and Message and data rates may apply. If you need further assistance, please reply “HELP”. You can also opt out by replying “STOP.”  For more information on how your data will be handled, please visit 
-                        ‎
-                        <Link className='a' to="/privacy">
-                             Privacy & Policy↗
-                        </Link>
-                    </label>
+            {/* ── Hero banner ─────────────────────────── */}
+            <div className="job-hero">
+                <div className="job-hero__overlay" />
+                <div className="job-hero__content">
+                    <span className="job-hero__label">
+                        <span className="job-hero__label-line" />
+                        Join Our Team
+                    </span>
+                    <h1 className="job-hero__title">
+                        Drive With <span className="job-hero__accent">Purpose.</span>
+                    </h1>
+                    <p className="job-hero__sub">
+                        Apply today and become part of a team that moves America forward.
+                    </p>
                 </div>
+                <div className="job-hero__diagonal" />
+            </div>
 
-                <button type="submit">Submit</button>
+            {/* ── Body: side info + form ───────────────── */}
+            <div className="job-body">
 
-                {/* Display status messages */}
-                <h3 className="status">
-                    {status && <p>{status}</p>}
-                </h3>
-            </form>
-        </>
-    )
-        ;
+                {/* Side panel */}
+                <aside className="job-side">
+                    <span className="job-side__label">
+                        <span className="job-side__label-line" />
+                        Why Drive With Us
+                    </span>
+                    <h2 className="job-side__title">
+                        Great Pay.<br />
+                        <span className="job-side__accent">Better Miles.</span>
+                    </h2>
+                    <div className="job-side__bar" />
+                    <p className="job-side__desc">
+                        Whether you're a Company Driver or Owner Operator, MO Globe Trucking
+                        offers competitive pay, steady miles, and a team that has your back.
+                    </p>
+                    <ul className="job-side__perks">
+                        {[
+                            { icon: '💰', text: 'Competitive pay & bonuses' },
+                            { icon: '🛣️', text: 'Consistent, long-haul miles' },
+                            { icon: '🏥', text: 'Health benefits available' },
+                            { icon: '📡', text: '24/7 dispatch support' },
+                            { icon: '🔧', text: 'Fleet maintenance covered' },
+                            { icon: '📋', text: 'CDL not required to apply' },
+                        ].map((p, i) => (
+                            <li key={i} className="job-side__perk">
+                                <span className="job-side__perk-icon">{p.icon}</span>
+                                {p.text}
+                            </li>
+                        ))}
+                    </ul>
+                </aside>
+
+                {/* Application form */}
+                <form className="job-form" onSubmit={handleSubmit} noValidate>
+                    <h3 className="job-form__heading">Application Form</h3>
+                    <div className="job-form__bar" />
+
+                    <div className="job-form__grid">
+
+                        {/* Full name */}
+                        <div className="job-form__field">
+                            <label className="job-form__label" htmlFor="jf-name">
+                                Full Name <span className="job-form__required">*</span>
+                            </label>
+                            <input id="jf-name" type="text" placeholder="John Smith"
+                                value={name} onChange={e => setName(e.target.value)} required />
+                        </div>
+
+                        {/* Email */}
+                        <div className="job-form__field">
+                            <label className="job-form__label" htmlFor="jf-email">Email</label>
+                            <input id="jf-email" type="email" placeholder="john@email.com"
+                                value={email} onChange={e => setEmail(e.target.value)} />
+                        </div>
+
+                        {/* Phone */}
+                        <div className="job-form__field">
+                            <label className="job-form__label" htmlFor="jf-phone">
+                                Phone Number <span className="job-form__required">*</span>
+                            </label>
+                            <input id="jf-phone" type="tel" placeholder="(000) 000-0000"
+                                value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} required />
+                        </div>
+
+                        {/* Job type */}
+                        <div className="job-form__field">
+                            <label className="job-form__label" htmlFor="jf-type">Position</label>
+                            <select id="jf-type" value={userType} onChange={e => setUserType(e.target.value)}>
+                                <option value="Company Driver">Company Driver</option>
+                                <option value="Owner Operator">Owner Operator</option>
+                            </select>
+                        </div>
+
+                        {/* Additional contact */}
+                        <div className="job-form__field job-form__field--full">
+                            <label className="job-form__label" htmlFor="jf-extra">
+                                Additional Contact <span className="job-form__optional">(Optional)</span>
+                            </label>
+                            <input id="jf-extra" type="text" placeholder="LinkedIn, Telegram, etc."
+                                value={additionalContact} onChange={e => setAdditionalContact(e.target.value)} />
+                        </div>
+
+                        {/* CDL upload */}
+                        <div className="job-form__field job-form__field--full">
+                            <label className="job-form__label" htmlFor="jf-file">
+                                Upload CDL <span className="job-form__optional">(Optional — PDF, DOC, TXT)</span>
+                            </label>
+                            <div className="job-form__file-wrap">
+                                <label htmlFor="jf-file" className="job-form__file-label">
+                                    {file ? `📎 ${file.name}` : '+ Choose File'}
+                                </label>
+                                <input id="jf-file" type="file" accept=".pdf,.doc,.docx,.txt"
+                                    onChange={e => setFile(e.target.files[0])} />
+                            </div>
+                        </div>
+
+                        {/* Message */}
+                        <div className="job-form__field job-form__field--full">
+                            <label className="job-form__label" htmlFor="jf-msg">Message</label>
+                            <textarea id="jf-msg" rows={4} placeholder="Tell us about your experience..."
+                                value={message} onChange={e => setMessage(e.target.value)} />
+                        </div>
+
+                        {/* Consent */}
+                        <div className="job-form__field job-form__field--full job-form__consent">
+                            <input type="checkbox" id="jf-consent"
+                                checked={consent} onChange={e => setConsent(e.target.checked)} required />
+                            <label htmlFor="jf-consent">
+                                By providing my phone number to "MO GLOBE TRUCKING CORP," I agree that MO
+                                GLOBE TRUCKING may send text messages to my wireless phone number. Message &amp;
+                                data rates may apply. Reply "STOP" to opt out.{' '}
+                                <Link to="/privacy" className="job-form__privacy-link">Privacy Policy ↗</Link>
+                            </label>
+                        </div>
+
+                        {/* Status */}
+                        {status && (
+                            <div className={`job-form__field job-form__field--full job-status job-status--${status}`}>
+                                {status === 'success' ? '✓ ' : '✕ '}{statusMsg}
+                            </div>
+                        )}
+
+                        {/* Submit */}
+                        <div className="job-form__field job-form__field--full">
+                            <button type="submit" className="job-form__submit" disabled={loading}>
+                                {loading ? (
+                                    <span className="job-form__spinner" />
+                                ) : (
+                                    <>
+                                        Submit Application
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" strokeWidth="2.5"
+                                            strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M5 12h14M12 5l7 7-7 7" />
+                                        </svg>
+                                    </>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
 };
 
 export default JobCom;
