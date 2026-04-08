@@ -1,12 +1,11 @@
 import React from 'react';
-import AboutCom from "../../components/AboutCom/AbourtCom.jsx";
+import AboutCom from '../../components/AboutCom/AbourtCom.jsx';
+import '../Pages.css';
 
 const About = () => {
     return (
-        <div>
-           <AboutCom/>
-             <br/>
-            <br/>
+        <div className="about-page">
+            <AboutCom />
         </div>
     );
 };

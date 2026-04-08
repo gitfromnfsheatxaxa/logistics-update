@@ -1,27 +1,43 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import FooterCom from '../../components/FooterCom/FooterCom.jsx';
+import { Link, useNavigate } from 'react-router-dom';
+import '../Pages.css';
 
 const NotFound = () => {
     const navigate = useNavigate();
 
-    const handleGoHome = () => {
-        navigate('/'); // Redirects to the home page
-    };
-
     return (
-        <>
-            <div className="not-found-container">
-                <h1 className="not-found-heading">4 <h1 className="not-found-heading-0">0</h1>   4</h1>
-                <p className="not-found-subheading">Oops! Page not found.</p>
-                <p className="not-found-description">
-                    Let’s get you to where you need to be.
+        <div className="nf-page">
+            <div className="nf-page__overlay" />
+            <div className="nf-page__bg" />
+            <div className="nf-page__inner">
+                <div className="nf-page__label">
+                    <span className="nf-page__line" />
+                    <span>Error 404</span>
+                </div>
+                <h1 className="nf-page__code">
+                    4<em>0</em>4
+                </h1>
+                <h2 className="nf-page__title">
+                    Page <em>Not Found</em>
+                </h2>
+                <p className="nf-page__text">
+                    The route you tried doesn't exist or has been moved. Let's get you back on track.
                 </p>
-                <button className="go-home-button" onClick={handleGoHome}>
-                    Back to home
-                </button>
+                <div className="nf-page__actions">
+                    <Link to="/" className="nf-btn nf-btn--primary">
+                        Back to Home
+                        <span className="nf-btn__arrow">→</span>
+                    </Link>
+                    <button
+                        type="button"
+                        className="nf-btn nf-btn--outline"
+                        onClick={() => navigate(-1)}
+                    >
+                        Go Back
+                    </button>
+                </div>
             </div>
-        </>
+        </div>
     );
 };
 

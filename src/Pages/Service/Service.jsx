@@ -1,10 +1,11 @@
 import React from 'react';
-import ServiceCom from "../../components/Service/ServiceCom.jsx";
+import ServiceCom from '../../components/Service/ServiceCom.jsx';
+import '../Pages.css';
 
 const Service = () => {
     return (
         <div className="service-page">
-            <ServiceCom/>
+            <ServiceCom />
         </div>
     );
 };

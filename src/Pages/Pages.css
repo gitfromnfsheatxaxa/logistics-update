@@ -1,144 +1,471 @@
-:root {
-    --color-primary: #FFBE34; /* Title */
-    --color-accent-dark: rgb(105, 105, 105); /* backround*/
-    --color-accent-light: #001F3F; /* backround*/
-    --color-accent: #f4f4f4; /* Paragraph Font Color */
-    --color-highlight: #f9f9f9; /* Heading Font Color */
+/* ============================================================
+   Pages.css — shared page-level layout & utility styles
+   Uses global CSS variables defined in src/index.css
+   ============================================================ */
+
+@keyframes pgFadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Contacts Page */
-.contacts-container {
-    width: 100% ;
-        /*background-color: var(--color-accent-dark); !* Using primary color *!*/
+@keyframes pgSlideInLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to   { opacity: 1; transform: translateX(0); }
 }
 
-.contacts-heading {
-    font-size: 2rem;
-    color: var(--color-primary); /* Using accent dark color */
+/* ---------- Generic page wrappers ---------- */
+.contacts-container,
+.job-container,
+.service-page,
+.news-page,
+.about-page,
+.privacy-page,
+.home-page {
+    width: 100%;
+    background: var(--color-white);
+    font-family: var(--font-body);
+    color: var(--color-dark);
+}
+
+/* ---------- Home page intro band ---------- */
+.home-intro {
+    position: relative;
+    background: var(--color-highlight);
+    border-left: 5px solid var(--color-primary);
+    padding: clamp(60px, 9vw, 110px) clamp(20px, 6vw, 90px);
+    overflow: hidden;
+}
+
+.home-intro::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 190, 52, 0.05) 0,
+        rgba(255, 190, 52, 0.05) 1px,
+        transparent 1px,
+        transparent 14px
+    );
+    pointer-events: none;
+}
+
+.home-intro__inner {
+    position: relative;
+    max-width: 980px;
+    margin: 0 auto;
     text-align: center;
-    margin-bottom: 15px;
 }
 
-.contacts-description {
-    font-size: 1.2rem;
-    color: var(--color-accent); /* Using accent color */
-    text-align: center;
-    margin-bottom: 30px;
+.home-intro__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--color-primary);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
 }
 
-/* Job Page */
-.job-container {
-    margin-top: 2rem;
-    background-color: var(--color-highlight); /* Using accent dark color */
-    /*background-color: rgba(10, 24, 56, 0.9);*/
-    padding: 3rem 2rem;
-    text-align: center;
+.home-intro__line {
+    width: 28px;
+    height: 2px;
+    background: var(--color-primary);
 }
 
-.job-heading {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--color-primary); /* Using highlight color */
-    margin-bottom: 1.5rem;
+.home-intro__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.2rem, 5vw, 4.2rem);
+    color: var(--color-dark);
+    text-transform: uppercase;
+    line-height: 1;
+    margin: 0 0 24px;
 }
 
-.job-description {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: var(--color-accent-dark) !important; /* Keeping white for text */
-    max-width: 700px; /* Max width for readability */
-    margin: 0 auto 2.5rem auto; /* Centered with margin below */
+.home-intro__title em {
+    color: var(--color-primary);
+    font-style: italic;
 }
 
-/* Responsive styles for Job Page */
-
-/* Footer styles */
-footer {
-    background-color: var(--color-accent-dark); /* Using accent dark color */
-    color: #F4F4F4; /* Light text */
-    padding: 1rem;
-    text-align: center;
-    font-size: 0.9rem; /* Slightly smaller font */
+.home-intro__text {
+    color: var(--color-mid);
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.75;
+    max-width: 720px;
+    margin: 0 auto 32px;
 }
 
+.home-intro__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: var(--color-primary);
+    color: var(--color-dark);
+    border: 2px solid var(--color-primary);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.35s ease;
+}
 
+.home-intro__btn:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    box-shadow: 0 6px 24px rgba(255, 190, 52, 0.4);
+    transform: translateY(-2px);
+}
 
-.not-found-container {
+.home-intro__btn-arrow {
+    transition: transform 0.35s ease;
+}
+
+.home-intro__btn:hover .home-intro__btn-arrow {
+    transform: translateX(6px);
+}
+
+/* ---------- 404 ---------- */
+.nf-page {
+    position: relative;
+    min-height: 100vh;
+    background: var(--color-dark);
+    border-left: 5px solid var(--color-primary);
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh; /* Full viewport height */
-    background-color: #ffffff; /* White background */
+    overflow: hidden;
+    font-family: var(--font-body);
+    color: var(--color-white);
+}
+
+.nf-page__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        105deg,
+        rgba(0, 10, 25, 0.97) 0%,
+        rgba(0, 31, 63, 0.75) 100%
+    );
+}
+
+.nf-page__bg {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 190, 52, 0.05) 0,
+        rgba(255, 190, 52, 0.05) 1px,
+        transparent 1px,
+        transparent 14px
+    );
+    pointer-events: none;
+}
+
+.nf-page__inner {
+    position: relative;
+    z-index: 2;
     text-align: center;
-    color: var(--color-accent-dark);
+    padding: 60px 24px;
+    max-width: 700px;
 }
 
-.not-found-heading {
-    display: flex;
-    font-size: 8rem; /* Large heading */
-    font-weight: bold;
-    color: var(--color-accent-dark);
-    margin: 0; /* Remove default margin */
-}
-.not-found-heading-0{
-    color: var(--color-primary);    display: flex;
-    font-size: 8rem; /* Large heading */
-    font-weight: bold;
-    margin: 0; /* Remove default margin */
-
-}
-.not-found-subheading {
-    font-size: 1.5rem;
-    color: var(--color-accent-dark);
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-.not-found-description {
-    font-size: 1rem;
-    color: var(--color-accent-dark);
-    margin-bottom: 30px;
-}
-
-.go-home-button {
-    padding: 12px 24px;
-    font-size: 1rem;
-    color: #ffffff;
-    background-color: var(--color-primary);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-}
-
-.go-home-button:hover {
-    background-color: var(--color-accent-dark);
+.nf-page__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
     color: var(--color-primary);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+    opacity: 0;
+    animation: pgSlideInLeft 0.7s ease 0.1s forwards;
 }
 
-.about-home{
-    margin-top:90vh;
+.nf-page__line {
+    width: 28px;
+    height: 2px;
+    background: var(--color-primary);
 }
-.service-page{
-    background-color: var(--color-highlight);
+
+.nf-page__code {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(6rem, 18vw, 14rem);
+    line-height: 0.9;
+    margin: 0 0 18px;
+    text-transform: uppercase;
+    color: var(--color-white);
+    opacity: 0;
+    animation: pgFadeInUp 0.8s ease 0.2s forwards;
 }
+
+.nf-page__code em {
+    color: var(--color-primary);
+    font-style: italic;
+}
+
+.nf-page__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+    text-transform: uppercase;
+    margin: 0 0 14px;
+    opacity: 0;
+    animation: pgFadeInUp 0.8s ease 0.35s forwards;
+}
+
+.nf-page__title em {
+    color: var(--color-primary);
+    font-style: italic;
+}
+
+.nf-page__text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto 32px;
+    opacity: 0;
+    animation: pgFadeInUp 0.8s ease 0.5s forwards;
+}
+
+.nf-page__actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: pgFadeInUp 0.8s ease 0.65s forwards;
+}
+
+.nf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    border: 2px solid;
+}
+
+.nf-btn--primary {
+    background: var(--color-primary);
+    color: var(--color-dark);
+    border-color: var(--color-primary);
+}
+
+.nf-btn--primary:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    box-shadow: 0 6px 24px rgba(255, 190, 52, 0.4);
+    transform: translateY(-2px);
+}
+
+.nf-btn--outline {
+    background: transparent;
+    color: var(--color-white);
+    border-color: rgba(255, 255, 255, 0.45);
+}
+
+.nf-btn--outline:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: translateY(-2px);
+}
+
+.nf-btn__arrow {
+    transition: transform 0.35s ease;
+}
+
+.nf-btn:hover .nf-btn__arrow {
+    transform: translateX(6px);
+}
+
+/* ---------- News page ---------- */
+.news-page {
+    overflow: hidden;
+}
+
+.news-hero {
+    position: relative;
+    width: 100%;
+    min-height: 55vh;
+    background: var(--color-dark);
+    border-left: 5px solid var(--color-primary);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.news-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        105deg,
+        rgba(0, 10, 25, 0.97) 0%,
+        rgba(0, 31, 63, 0.75) 100%
+    );
+    z-index: 1;
+}
+
+.news-hero__inner {
+    position: relative;
+    z-index: 2;
+    padding: clamp(40px, 8vw, 100px) clamp(20px, 6vw, 90px);
+    max-width: 1200px;
+}
+
+.news-hero__label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--color-primary);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+    opacity: 0;
+    animation: pgSlideInLeft 0.7s ease 0.1s forwards;
+}
+
+.news-hero__line {
+    width: 28px;
+    height: 2px;
+    background: var(--color-primary);
+}
+
+.news-hero__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.4rem, 6vw, 5rem);
+    line-height: 1;
+    color: var(--color-white);
+    text-transform: uppercase;
+    margin: 0 0 22px;
+    opacity: 0;
+    animation: pgFadeInUp 0.8s ease 0.25s forwards;
+}
+
+.news-hero__title em {
+    color: var(--color-primary);
+    font-style: italic;
+}
+
+.news-hero__subtitle {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    max-width: 620px;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0;
+    animation: pgFadeInUp 0.8s ease 0.4s forwards;
+}
+
+.news-hero__cut {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 55px;
+    background: var(--color-white);
+    clip-path: polygon(0 60%, 100% 0, 100% 100%, 0 100%);
+    z-index: 2;
+}
+
+.news-body {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: clamp(60px, 9vw, 110px) clamp(20px, 6vw, 60px);
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: clamp(24px, 3vw, 36px);
+    margin-bottom: clamp(50px, 7vw, 80px);
+}
+
+.news-empty {
+    text-align: center;
+    color: var(--color-mid);
+    font-size: 1rem;
+    padding: 60px 20px;
+}
+
+.news-cta {
+    text-align: center;
+}
+
+.news-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: var(--color-primary);
+    color: var(--color-dark);
+    border: 2px solid var(--color-primary);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.35s ease;
+}
+
+.news-cta__btn:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    box-shadow: 0 6px 24px rgba(255, 190, 52, 0.4);
+    transform: translateY(-2px);
+}
+
+.news-cta__btn-arrow {
+    transition: transform 0.35s ease;
+}
+
+.news-cta__btn:hover .news-cta__btn-arrow {
+    transform: translateX(6px);
+}
+
+/* ---------- Responsive ---------- */
 @media (max-width: 768px) {
-    .contacts-container,.job-container {
+    .home-intro,
+    .news-body {
+        padding: 60px 16px;
+    }
+
+    .news-hero {
+        min-height: 30vh;
+    }
+
+    .news-hero__subtitle {
+        display: none;
+    }
+
+    .news-hero__inner {
+        padding: 60px 16px;
+    }
+
+    .nf-btn {
         width: 100%;
-    }
-    .job-container {
-        padding: 2rem 1rem; /* Less padding on smaller screens */
-    }
-
-    .job-heading {
-        font-size: 2rem; /* Smaller heading size */
-    }
-
-    .job-description {
-        font-size: 1rem; /* Smaller description size */
-        padding: 0 1rem; /* Padding for smaller screens */
+        justify-content: center;
     }
 }

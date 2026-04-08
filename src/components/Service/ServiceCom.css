@@ -1,0 +1,557 @@
+/* ============================================================
+   ServiceCom.css — shared styles for ServiceCom & ServiceHomeCom
+   ============================================================ */
+
+/* ---------- Animations ---------- */
+@keyframes svcFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes svcSlideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ============================================================
+   SERVICE PAGE
+   ============================================================ */
+.svc-page {
+    width: 100%;
+    background: var(--color-white);
+    font-family: var(--font-body);
+    color: var(--color-dark);
+    overflow: hidden;
+}
+
+/* ---------- Hero ---------- */
+.svc-hero {
+    position: relative;
+    width: 100%;
+    min-height: 55vh;
+    background: var(--color-dark);
+    border-left: 5px solid var(--color-primary);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.svc-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        105deg,
+        rgba(0, 10, 25, 0.97) 0%,
+        rgba(0, 31, 63, 0.75) 100%
+    );
+    z-index: 1;
+}
+
+.svc-hero__inner {
+    position: relative;
+    z-index: 2;
+    padding: clamp(40px, 8vw, 100px) clamp(20px, 6vw, 90px);
+    max-width: 1200px;
+}
+
+.svc-hero__label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--color-primary);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+    opacity: 0;
+    animation: svcSlideInLeft 0.7s ease 0.1s forwards;
+}
+
+.svc-hero__line {
+    width: 28px;
+    height: 2px;
+    background: var(--color-primary);
+}
+
+.svc-hero__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.4rem, 6vw, 5rem);
+    line-height: 1;
+    color: var(--color-white);
+    text-transform: uppercase;
+    margin: 0 0 22px;
+    opacity: 0;
+    animation: svcFadeInUp 0.8s ease 0.25s forwards;
+}
+
+.svc-hero__title em {
+    color: var(--color-primary);
+    font-style: italic;
+    font-weight: 900;
+}
+
+.svc-hero__subtitle {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    max-width: 620px;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0;
+    animation: svcFadeInUp 0.8s ease 0.4s forwards;
+}
+
+.svc-hero__cut {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 55px;
+    background: var(--color-white);
+    clip-path: polygon(0 60%, 100% 0, 100% 100%, 0 100%);
+    z-index: 2;
+}
+
+/* ---------- Service rows ---------- */
+.svc-list {
+    padding: clamp(60px, 10vw, 120px) clamp(20px, 6vw, 90px);
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(60px, 9vw, 110px);
+}
+
+.svc-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(30px, 5vw, 70px);
+    align-items: center;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.svc-row.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.svc-row--reverse .svc-row__media {
+    order: 2;
+}
+
+.svc-row__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+}
+
+.svc-row__image {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-2) 100%);
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s ease;
+}
+
+.svc-row__media:hover .svc-row__image {
+    transform: scale(1.04);
+}
+
+.svc-row__corner {
+    position: absolute;
+    background: var(--color-primary);
+    z-index: 2;
+}
+
+.svc-row__corner--h {
+    left: 0;
+    bottom: 0;
+    width: 56px;
+    height: 6px;
+}
+
+.svc-row__corner--v {
+    left: 0;
+    bottom: 0;
+    width: 6px;
+    height: 56px;
+}
+
+.svc-row__body {
+    display: flex;
+    flex-direction: column;
+}
+
+.svc-row__label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--color-primary);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 14px;
+}
+
+.svc-row__line {
+    width: 28px;
+    height: 2px;
+    background: var(--color-primary);
+}
+
+.svc-row__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+    color: var(--color-dark);
+    text-transform: uppercase;
+    line-height: 1.05;
+    margin: 0 0 18px;
+}
+
+.svc-row__bar {
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--color-primary);
+    margin-bottom: 22px;
+}
+
+.svc-row__desc {
+    color: var(--color-mid);
+    font-size: 1rem;
+    line-height: 1.75;
+    margin: 0 0 28px;
+    max-width: 540px;
+}
+
+/* ---------- Buttons ---------- */
+.svc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    align-self: flex-start;
+}
+
+.svc-btn--primary {
+    background: var(--color-primary);
+    color: var(--color-dark);
+    border: 2px solid var(--color-primary);
+}
+
+.svc-btn--primary:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    box-shadow: 0 6px 24px rgba(255, 190, 52, 0.4);
+    transform: translateY(-2px);
+}
+
+.svc-btn--outline {
+    background: transparent;
+    color: var(--color-dark);
+    border: 2px solid rgba(0, 31, 63, 0.45);
+}
+
+.svc-btn--outline:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: translateY(-2px);
+}
+
+.svc-btn__arrow {
+    display: inline-block;
+    transition: transform 0.35s ease;
+}
+
+.svc-btn:hover .svc-btn__arrow {
+    transform: translateX(6px);
+}
+
+/* ---------- CTA Strip ---------- */
+.svc-cta {
+    background: var(--color-dark);
+    border-left: 5px solid var(--color-primary);
+    padding: clamp(50px, 8vw, 90px) clamp(20px, 6vw, 90px);
+    text-align: center;
+    color: var(--color-white);
+    position: relative;
+    overflow: hidden;
+}
+
+.svc-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 190, 52, 0.04) 0,
+        rgba(255, 190, 52, 0.04) 1px,
+        transparent 1px,
+        transparent 14px
+    );
+    pointer-events: none;
+}
+
+.svc-cta__title {
+    color: var(--color-primary);
+    position: relative;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2rem, 4.5vw, 3.4rem);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+}
+
+.svc-cta__title em {
+    color: var(--color-primary);
+    font-style: italic;
+}
+
+.svc-cta__text {
+    position: relative;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1.05rem;
+    margin: 0 0 28px;
+}
+
+.svc-cta .svc-btn {
+    position: relative;
+    align-self: center;
+}
+
+/* ============================================================
+   SERVICE HOME (homepage preview)
+   ============================================================ */
+.svch {
+    position: relative;
+    background: var(--color-dark);
+    border-left: 5px solid var(--color-primary);
+    padding: clamp(60px, 9vw, 110px) clamp(20px, 6vw, 80px);
+    overflow: hidden;
+    font-family: var(--font-body);
+}
+
+.svch__bg {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 190, 52, 0.04) 0,
+        rgba(255, 190, 52, 0.04) 1px,
+        transparent 1px,
+        transparent 14px
+    );
+    pointer-events: none;
+}
+
+.svch__inner {
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.svch__header {
+    text-align: center;
+    margin-bottom: clamp(40px, 6vw, 70px);
+}
+
+.svch__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--color-primary);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+}
+
+.svch__line {
+    width: 28px;
+    height: 2px;
+    background: var(--color-primary);
+}
+
+.svch__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    color: var(--color-white);
+    text-transform: uppercase;
+    margin: 0 0 14px;
+    line-height: 1;
+}
+
+.svch__title em {
+    color: var(--color-primary);
+    font-style: italic;
+}
+
+.svch__subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.svch__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(20px, 2.5vw, 32px);
+    margin-bottom: clamp(40px, 6vw, 70px);
+}
+
+.svch__card {
+    position: relative;
+    background: var(--color-dark-2);
+    border: 1px solid rgba(255, 190, 52, 0.12);
+    padding: clamp(28px, 3vw, 42px) clamp(22px, 2.5vw, 34px);
+    transition: all 0.4s ease;
+    overflow: hidden;
+}
+
+.svch__card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.svch__card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 190, 52, 0.35);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+}
+
+.svch__card:hover::before {
+    transform: scaleX(1);
+}
+
+.svch__num {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: 18px;
+}
+
+.svch__cardTitle {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-white);
+    text-transform: uppercase;
+    margin: 0 0 12px;
+    line-height: 1.15;
+}
+
+.svch__cardDesc {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin: 0;
+}
+
+.svch__cta {
+    display: flex;
+    justify-content: center;
+}
+
+/* When the homepage CTA button sits on a dark bg, keep primary styling */
+.svch__cta .svc-btn--primary {
+    align-self: center;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+    .svc-row {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .svc-row--reverse .svc-row__media {
+        order: 0;
+    }
+
+    .svch__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .svc-hero {
+        min-height: 30vh;
+    }
+
+    .svc-hero__subtitle {
+        display: none;
+    }
+
+    .svc-hero__inner {
+        padding: 60px 16px;
+    }
+
+    .svc-list {
+        padding: 60px 16px;
+    }
+
+    .svch {
+        padding: 60px 16px;
+    }
+
+    .svch__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .svc-btn {
+        width: 100%;
+        justify-content: center;
+        align-self: stretch;
+    }
+
+    .svc-cta .svc-btn,
+    .svch__cta .svc-btn {
+        width: auto;
+        align-self: center;
+    }
+}

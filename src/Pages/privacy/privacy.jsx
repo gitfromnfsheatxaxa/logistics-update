@@ -1,11 +1,13 @@
-import React from 'react'
-import PrivacyCom from '../../components/PrivacyCom/PrivacyCom'
-function privacy() {
-    return (
-        <div>
-            <PrivacyCom/>
-        </div>
-    )
-}
+import React from 'react';
+import PrivacyCom from '../../components/PrivacyCom/PrivacyCom.jsx';
+import '../Pages.css';
 
-export default privacy
+const Privacy = () => {
+    return (
+        <div className="privacy-page">
+            <PrivacyCom />
+        </div>
+    );
+};
+
+export default Privacy;
