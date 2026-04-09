@@ -5,40 +5,34 @@ import './ServiceCom.css';
 
 const services = [
     {
-        label: 'Service 01',
-        title: 'Full Truckload (FTL) Shipping',
+        label: 'Open Deck 01',
+        title: 'Flatbed & Stepdeck',
         description:
-            'Dedicated trailer space for high-volume freight. Direct point-to-point delivery, faster transit times, and reduced handling for the safety of your cargo.',
+            'Our core open-deck transport solutions for construction materials, steel, and industrial equipment. Versatile, reliable hauling for loads that require top, side, or rear loading.',
     },
     {
-        label: 'Service 02',
-        title: 'Less-than-Truckload (LTL) Shipping',
+        label: 'Heavy Haul 02',
+        title: 'RGN (Lowboy)',
         description:
-            'Cost-effective shipping for smaller loads. We consolidate freight efficiently so you only pay for the space you need without sacrificing reliability.',
+            'Heavy-haul specialized transport for oversized machinery, construction equipment, and high-clearance loads. Removable goosenecks make loading tall, wide, and heavy cargo seamless.',
     },
     {
-        label: 'Service 03',
-        title: 'Refrigerated Transport',
+        label: 'Enclosed 03',
+        title: 'Dry Van & Reefer',
         description:
-            'Temperature-controlled trailers for perishables, pharmaceuticals, and sensitive goods. Continuous monitoring keeps your cargo within spec from pickup to delivery.',
+            'Reliable, secure transport for general freight and temperature-sensitive goods. Refrigerated trailers maintain precise temperatures for perishables, pharmaceuticals, and produce.',
     },
     {
-        label: 'Service 04',
-        title: 'Expedited Freight',
+        label: 'Specialized 04',
+        title: 'Power Only (P/O)',
         description:
-            'Time-critical shipments handled with urgency. Team drivers, priority routing, and 24/7 dispatch ensure your freight arrives when it absolutely has to.',
+            'Flexible towing services where we provide the tractor for your pre-loaded trailers. Ideal for shippers needing extra capacity without committing to a full equipment lease.',
     },
     {
-        label: 'Service 05',
-        title: 'Logistics & Supply Chain Management',
+        label: 'Specialized 05',
+        title: 'Amazon Logistics',
         description:
-            'End-to-end coordination across carriers, warehouses, and lanes. We optimize routes, reduce dwell time, and give you visibility at every stage of the chain.',
-    },
-    {
-        label: 'Service 06',
-        title: 'Dispatch Services',
-        description:
-            'Professional dispatching for owner-operators and small fleets. Load matching, route planning, and constant driver support to keep wheels turning and revenue growing.',
+            'Dedicated lanes and specialized delivery fulfillment within the Amazon network. Compliant, on-time performance built for high-volume e-commerce freight.',
     },
 ];
 

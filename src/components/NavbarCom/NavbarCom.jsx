@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { faAlignJustify, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './NavbarCom.css';
-import Logo from '/public/logo-for-website.svg';
+import Logo from '/public/logo-red.svg';
 
 const NavbarCom = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
