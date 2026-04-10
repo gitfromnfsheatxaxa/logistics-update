@@ -167,10 +167,10 @@ const AdminPanel = () => {
                         startIcon={<AddIcon />}
                         onClick={openCreate}
                         sx={{
-                            background: 'var(--color-primary)',
-                            color: 'var(--color-dark)',
+                            background: 'var(--color-dark)',
+                            color: 'var(--color-primary-dark)',
                             fontWeight: 700,
-                            '&:hover': { background: 'var(--color-primary-dark)' },
+                            '&:hover': { background: 'var(--color-primary-dark)',color: 'var(--color-dark)' },
                         }}
                     >
                         New Truck

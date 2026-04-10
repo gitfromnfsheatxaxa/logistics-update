@@ -11,7 +11,6 @@ import About from "./Pages/about/About.jsx";
 import Home from "./Pages/home/Home.jsx";
 import NotFound from "./Pages/404/NotFound.jsx";
 import News from "./Pages/News/News.jsx";
-import Footer from "./components/FooterCom/FooterCom.jsx";
 import FooterCom from "./components/FooterCom/FooterCom.jsx";
 import Service from "./Pages/Service/Service.jsx";
 import Privacy from "./Pages/privacy/privacy.jsx";

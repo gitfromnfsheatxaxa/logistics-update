@@ -9,6 +9,10 @@ import {
     Alert,
 } from '@mui/material';
 
+// Locally defined credentials
+const ADMIN_LOGIN = 'moglobeadmin';
+const ADMIN_PASSWORD = 'adminmoglobe';
+
 const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,13 +24,23 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (!username.trim() || !password.trim()) {
             setError('Enter username and password');
             return;
         }
-        // Dummy token for testing — replace with real auth later
-        localStorage.setItem('token', 'dummy-token-' + Date.now());
-        navigate(from, { replace: true });
+
+        // Logic to check against local constants
+        if (username === ADMIN_LOGIN && password === ADMIN_PASSWORD) {
+            // Generate a token that matches the ProtectedRoute logic
+            const token = btoa(`${ADMIN_LOGIN}:${ADMIN_PASSWORD}`);
+            localStorage.setItem('token', token);
+
+            setError('');
+            navigate(from, { replace: true });
+        } else {
+            setError('Invalid username or password');
+        }
     };
 
     return (
@@ -74,6 +88,7 @@ const Login = () => {
                 <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     <TextField
                         label="Username"
+                        variant="outlined"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         fullWidth
@@ -81,6 +96,7 @@ const Login = () => {
                     <TextField
                         label="Password"
                         type="password"
+                        variant="outlined"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         fullWidth
@@ -92,7 +108,7 @@ const Login = () => {
                             mt: 1,
                             py: 1.4,
                             background: 'var(--color-primary)',
-                            color: 'var(--color-dark)',
+                            color: '#fff', // Changed to white for better contrast on the new blue primary
                             fontWeight: 700,
                             letterSpacing: 1,
                             '&:hover': { background: 'var(--color-primary-dark)' },

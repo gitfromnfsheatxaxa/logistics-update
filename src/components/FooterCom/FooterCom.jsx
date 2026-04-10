@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './FooterCom.css';
-import Logo from '/public/logo-for-website.svg';
+import Logo from '/public/logo-white.svg';
 
 const pages = [
     { to: '/about', label: 'About Us' },

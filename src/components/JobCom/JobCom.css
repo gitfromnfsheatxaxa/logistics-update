@@ -562,7 +562,7 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     background: var(--color-primary);
-    color: var(--color-dark);
+    color: var(--color-primary-dark);
     padding: 3px 10px;
     border-radius: 2px;
 }
@@ -570,14 +570,19 @@
 .job-offer-card__icon-wrap {
     width: 72px;
     height: 72px;
-    background: rgba(255, 190, 52, 0.1);
+    background: var(--color-light);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
 }
-
+.job-offer-card-circle{
+    width: 50px;
+    height: 50px;
+    background: var(--color-dark);
+    border-radius: 50%;
+}
 .job-offer-card__icon {
     width: 40px;
     height: 40px;
@@ -663,11 +668,10 @@
 }
 
 .job-offer-card__cta:hover {
-    background: var(--color-primary);
-    border-color: var(--color-primary) !important;
+    background: var(--color-primary-dark);
     color: var(--color-dark);
     transform: translateY(-2px);
-    box-shadow: 0 4px 18px rgba(255, 190, 52, 0.35);
+    box-shadow: 0 4px 18px var(--color-primary-dark);
 }
 
 /* ============================================================

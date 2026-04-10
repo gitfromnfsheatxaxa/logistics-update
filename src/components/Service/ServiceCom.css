@@ -262,27 +262,27 @@
 }
 
 .svc-btn--primary {
-    background: var(--color-primary);
+    background: var(--color-primary-dark);
     color: var(--color-dark);
-    border: 2px solid var(--color-primary);
+    border: 2px solid var(--color-primary-dark);
 }
 
 .svc-btn--primary:hover {
     background: var(--color-primary-dark);
     border-color: var(--color-primary-dark);
-    box-shadow: 0 6px 24px rgba(255, 190, 52, 0.4);
+    box-shadow: 0 4px 18px var(--color-primary-dark);
     transform: translateY(-2px);
 }
 
 .svc-btn--outline {
-    background: transparent;
+    background: var(--color-primary-dark);
     color: var(--color-dark);
     border: 2px solid rgba(0, 31, 63, 0.45);
 }
 
 .svc-btn--outline:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+    border-color: var(--color-dark-3);
+    color: var(--color-dark-3);
     transform: translateY(-2px);
 }
 
@@ -433,7 +433,7 @@
 
 .svch__card {
     position: relative;
-    background: var(--color-dark-2);
+    background: var(--color-primary-dark);
     border: 1px solid rgba(255, 190, 52, 0.12);
     padding: clamp(28px, 3vw, 42px) clamp(22px, 2.5vw, 34px);
     transition: all 0.4s ease;
@@ -455,8 +455,8 @@
 
 .svch__card:hover {
     transform: translateY(-6px);
-    border-color: rgba(255, 190, 52, 0.35);
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+    border-color: var(--color-primary-dark);
+    box-shadow: 0 4px 18px var(--color-primary-dark);
 }
 
 .svch__card:hover::before {
@@ -468,7 +468,7 @@
     font-family: var(--font-display);
     font-size: 2.6rem;
     font-weight: 900;
-    color: var(--color-primary);
+    color: var(--color-dark);
     line-height: 1;
     margin-bottom: 18px;
 }
@@ -477,14 +477,14 @@
     font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 800;
-    color: var(--color-white);
+    color: var(--color-dark-3);
     text-transform: uppercase;
     margin: 0 0 12px;
     line-height: 1.15;
 }
 
 .svch__cardDesc {
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--color-dark-3);
     font-size: 0.95rem;
     line-height: 1.65;
     margin: 0;

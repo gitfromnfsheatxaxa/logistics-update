@@ -154,9 +154,11 @@
 
 /* Primary – gold fill */
 .hero__btn--primary {
-    background-color: var(--color-primary);
+    background: var(--color-primary-dark);
     color: var(--color-dark);
-    border-color: var(--color-primary);
+    background: var(--color-primary-dark);
+
+    border-color: var(--color-primary-dark);
 }
 
 .hero__btn--primary:hover {
@@ -182,9 +184,9 @@
 }
 
 .hero__btn--outline:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    border-color: var(--color-primary) !important;
-    color: var(--color-primary);
+    background: var(--color-primary-dark);
+    color: var(--color-dark);
+    box-shadow: 0 4px 18px var(--color-primary-dark);
     transform: translateY(-3px);
 }
 

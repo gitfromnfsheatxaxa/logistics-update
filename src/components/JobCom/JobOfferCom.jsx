@@ -56,7 +56,8 @@ const JobOfferCom = () => {
 
                         {/* Icon */}
                         <div className="job-offer-card__icon-wrap">
-                            <img src={offer.icon} alt={offer.alt} className="job-offer-card__icon" />
+                            <div className="job-offer-card-circle">
+                            </div>
                         </div>
 
                         {/* Role title */}

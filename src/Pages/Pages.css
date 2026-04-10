@@ -61,7 +61,7 @@
     display: inline-flex;
     align-items: center;
     gap: 14px;
-    color: var(--color-primary);
+    color: var(--color-dark);
     font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
@@ -72,7 +72,7 @@
 .home-intro__line {
     width: 28px;
     height: 2px;
-    background: var(--color-primary);
+    background: var(--color-dark);
 }
 
 .home-intro__title {
@@ -86,7 +86,6 @@
 }
 
 .home-intro__title em {
-    color: var(--color-primary);
     font-style: italic;
 }
 
@@ -103,9 +102,9 @@
     align-items: center;
     gap: 10px;
     padding: 14px 32px;
-    background: var(--color-primary);
+    background: var(--color-primary-dark);
     color: var(--color-dark);
-    border: 2px solid var(--color-primary);
+    border: 2px solid var(--color-dark-3);
     font-family: var(--font-body);
     font-weight: 700;
     font-size: 14px;
@@ -119,7 +118,7 @@
 .home-intro__btn:hover {
     background: var(--color-primary-dark);
     border-color: var(--color-primary-dark);
-    box-shadow: 0 6px 24px rgba(255, 190, 52, 0.4);
+    box-shadow: 0 6px 24px var(--color-primary-glow);
     transform: translateY(-2px);
 }
 
@@ -264,15 +263,15 @@
 }
 
 .nf-btn--primary {
-    background: var(--color-primary);
+    background: var(--color-primary-dark);
     color: var(--color-dark);
-    border-color: var(--color-primary);
+    border-color: var(--color-primary-dark);
 }
 
 .nf-btn--primary:hover {
     background: var(--color-primary-dark);
     border-color: var(--color-primary-dark);
-    box-shadow: 0 6px 24px rgba(255, 190, 52, 0.4);
+    box-shadow: 0 6px 24px var(--color-primary-glow);
     transform: translateY(-2px);
 }
 
@@ -417,9 +416,10 @@
     align-items: center;
     gap: 10px;
     padding: 14px 32px;
-    background: var(--color-primary);
+    background: var(--color-primary-dark);
     color: var(--color-dark);
-    border: 2px solid var(--color-primary);
+    border: 2px solid var(--color-dark);
+
     font-family: var(--font-body);
     font-weight: 700;
     font-size: 14px;
@@ -433,7 +433,7 @@
 .news-cta__btn:hover {
     background: var(--color-primary-dark);
     border-color: var(--color-primary-dark);
-    box-shadow: 0 6px 24px rgba(255, 190, 52, 0.4);
+    box-shadow: 0 6px 24px var(--color-primary-glow);
     transform: translateY(-2px);
 }
 

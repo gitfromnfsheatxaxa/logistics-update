@@ -4,28 +4,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Rubik:wght@300;400;500;600;700&display=swap');
 
 :root {
-    /* Brand Colors – US Flag Industrial Palette */
-    --color-primary: #B22234;
-    /* Old Glory Red – CTAs, accents */
-    --color-primary-dark: #8C1B29;
-    /* Darker red for hover/active */
-    --color-primary-glow: transparent;
+    /* Brand Colors – Navy, Blue, & White Palette */
 
-    --color-dark: #001F3F;
-    /* Deep Navy – headers, hero, dark sections */
-    --color-dark-2: #00305E;
-    --color-dark-3: #001530;
+    /* Highlight Colors (H1, CTA, Accents) */
+    --color-primary: #007BFF;          /* Vibrant Blue for highlights/headings */
+    --color-primary-dark: #fff;     /* Deep Navy for hover or secondary emphasis */
+    --color-primary-glow: rgba(0, 123, 255, 0.3);
 
-    --color-mid: #6C757D;
-    --color-light: #F4F4F4;
+    /* Navy Scale */
+    --color-dark: #001F3F;             /* Deep Navy – headers, hero, dark sections */
+    --color-dark-2: #007BFF;           /* Corporate Navy Blue */
+    --color-dark-3: #001530;           /* Midnight Navy */
+
+    /* Mid-tones & Neutrals (Converted from Grey to Blue-tinted Neutrals) */
+    --color-mid: #A0B1C5;              /* Muted Steel Blue (replacing grey) */
+    --color-light: #F0F4F8;            /* Very light blue-white for backgrounds */
     --color-highlight: #FFFFFF;
     --color-white: #ffffff;
 
-    /* Text */
+    /* Text Colors */
     --text-on-dark: #ffffff;
     --text-on-dark-muted: rgba(255, 255, 255, 0.8);
-    --text-on-light: #001F3F;
-    --text-on-light-muted: #495057;
+    --text-on-light: #001F3F;          /* Navy text on light backgrounds */
+    --text-on-light-muted: #546E7A;    /* Blue-Grey for muted text */
 
     /* Typography */
     --font-display: 'Barlow Condensed', sans-serif;
@@ -38,8 +39,8 @@
     --container-pad: 0 40px;
 
     /* Effects – Clean & Corporate */
-    --shadow-gold: 0 2px 8px rgba(0, 0, 0, 0.15);
-    --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.25);
+    --shadow-gold: 0 2px 8px rgba(0, 31, 63, 0.15); /* Tinted shadow to match navy */
+    --shadow-dark: 0 4px 20px rgba(0, 21, 48, 0.25);
     --transition: all 0.2s ease-in-out;
     --radius: 2px;
     --radius-lg: 4px;
@@ -48,7 +49,6 @@
     --overlay-dark: rgba(0, 31, 63, 0.85);
     --overlay-darker: rgba(0, 21, 48, 0.95);
 }
-
 /* ============================================================
    RESET
    ============================================================ */

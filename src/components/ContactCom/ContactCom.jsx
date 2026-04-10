@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './ContactsCom.css';
-import icon1 from '../../../public/Icon.svg';
-import icon2 from '../../../public/Icon (1).svg';
-import icon3 from '../../../public/Icon (2).svg';
+
 import { Link } from 'react-router-dom';
 
 const ContactsCom = () => {
@@ -50,9 +48,9 @@ const ContactsCom = () => {
     };
 
     const infoItems = [
-        { icon: icon1, label: 'Email Us', value: 'info@moglobetrucking.com' },
-        { icon: icon2, label: 'Call Us', value: '(512) 787-0305' },
-        { icon: icon3, label: 'Working Hours', value: 'Mon – Sat  9:00 – 18:00\nSunday Closed' },
+        {  label: 'Email Us', value: 'info@moglobetrucking.com' },
+        {  label: 'Call Us', value: '(512) 787-0305' },
+        {  label: 'Working Hours', value: 'Mon – Sat  9:00 – 18:00\nSunday Closed' },
     ];
 
     return (
@@ -82,7 +80,7 @@ const ContactsCom = () => {
                 {infoItems.map((item, i) => (
                     <div key={i} className="contact-info-card">
                         <div className="contact-info-card__icon-wrap">
-                            <img src={item.icon} alt={item.label} />
+                            <div className="contact-info-card-circle"></div>
                         </div>
                         <div>
                             <span className="contact-info-card__label">{item.label}</span>

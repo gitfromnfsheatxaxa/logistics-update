@@ -134,7 +134,7 @@
     font-size: 0.88rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    background-color: var(--color-primary);
+    background: var(--color-primary-dark);
     color: var(--color-dark);
     padding: 10px 24px;
     border-radius: 3px;
@@ -149,7 +149,7 @@
 
 .navbar__cta:hover {
     background-color: var(--color-primary-dark);
-    box-shadow: 0 4px 20px rgba(255, 190, 52, 0.4);
+    box-shadow: 0 4px 20px var(--color-primary-dark);
     transform: translateY(-2px);
 }
 

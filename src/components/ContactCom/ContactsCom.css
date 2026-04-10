@@ -130,7 +130,7 @@
 
 .contact-info-card:hover {
     border-top-color: var(--color-primary);
-    background: var(--color-dark-2);
+
 }
 
 .contact-info-card__icon-wrap {
@@ -144,10 +144,11 @@
     flex-shrink: 0;
 }
 
-.contact-info-card__icon-wrap img {
+.contact-info-card-circle {
     width: 22px;
     height: 22px;
-    filter: brightness(0) saturate(100%) invert(78%) sepia(60%) saturate(500%) hue-rotate(0deg);
+    background: var(--color-primary-dark);
+    border-radius: 50%;
 }
 
 .contact-info-card__label {
@@ -425,9 +426,9 @@
     font-size: 1rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    background: var(--color-primary);
+    background: var(--color-primary-dark);
     color: var(--color-dark);
-    border: 2px solid var(--color-primary);
+    border: 2px solid var(--color-primary-dark);
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.28s ease;
@@ -436,7 +437,7 @@
 .contact-form__submit:hover:not(:disabled) {
     background: var(--color-primary-dark);
     border-color: var(--color-primary-dark) !important;
-    box-shadow: 0 6px 24px rgba(255, 190, 52, 0.4);
+    box-shadow: 0 4px 18px var(--color-primary-dark);
     transform: translateY(-2px);
 }
 
